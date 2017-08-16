@@ -10,8 +10,10 @@ public class Demo1 {
   }
 
   /**
-   * 以前只用Collections的sort方法,原来List也有一个sort方法了(Java8新加的!)
+   * * 以前只用Collections的sort方法,原来List也有一个sort方法了(Java8新加的!)
    */
+
+
   public static void testListSortWithLambda() {
     List<String> list = Arrays.asList("peter", "anna", "mike", "xenia");
     System.out.println(list);
@@ -19,9 +21,11 @@ public class Demo1 {
     System.out.println(list);
   }
 
-  /**
-   * 自定义函数式接口
-   */
+/*
+  *自定义函数式接口
+ */
+
+
   private static void testCustomMethod() {
     Converter<String, Integer> convert = (x) -> Integer.valueOf(x);
     Integer num = convert.convert("123");
