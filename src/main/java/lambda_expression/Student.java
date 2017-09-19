@@ -1,12 +1,17 @@
 package lambda_expression;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class Student {
   String name;
   Set<String> book;
 
+  static Optional<Student> create(Supplier<Student> supplier) {
+    return Optional.of(supplier.get());
+  }
 
   public String getName() {
     return name;

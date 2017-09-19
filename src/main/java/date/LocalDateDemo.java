@@ -4,19 +4,17 @@ import javax.swing.text.DateFormatter;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.TemporalField;
+import java.time.temporal.*;
 import java.util.Date;
 
 /**
  * Created by xd031 on 2017/8/6.
+ * 异步化!
  */
 public class LocalDateDemo {
   public static void main(String[] args) {
-    /*testJava8Date();
-    compareSqlTimeAndDateTime();*/
+    // testJava8Date();
+    //compareSqlTimeAndDateTime();
 //    testLocalDate();
 //    testLocalTime();
 //    testInstant();
@@ -24,14 +22,18 @@ public class LocalDateDemo {
 //    localDateMethodTest();
 //    formatTest();
 //    testMonthDay();
-//    testYearMonth();
+    testYearMonth();
   }
 
   private static void testYearMonth() {
-    YearMonth yearMonth = YearMonth.of(2019, 12);
-    System.out.println(yearMonth);
-    yearMonth = YearMonth.now();
-    System.out.println(yearMonth.lengthOfMonth());
+    LocalDate localDate = LocalDate.now();
+    localDate = localDate.plus(2, ChronoUnit.DAYS);
+    LocalDate firstDays = localDate.with(TemporalAdjusters.firstDayOfMonth());
+    LocalDate lastDays = localDate.with(TemporalAdjusters.lastDayOfMonth());
+    int days = YearMonth.from(localDate).lengthOfMonth();
+    System.out.println(localDate + "->" + firstDays + "->" + lastDays + "->" + days);//需求完成
+    LocalDate date = YearMonth.from(localDate).atDay(13);
+    System.out.println(date);
   }
 
   /**
