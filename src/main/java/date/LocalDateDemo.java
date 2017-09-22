@@ -1,9 +1,7 @@
 package date;
 
-import javax.swing.text.DateFormatter;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.time.temporal.*;
 import java.util.Date;
 
@@ -12,7 +10,7 @@ import java.util.Date;
  * 异步化!
  */
 public class LocalDateDemo {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
     // testJava8Date();
     //compareSqlTimeAndDateTime();
 //    testLocalDate();
@@ -22,7 +20,36 @@ public class LocalDateDemo {
 //    localDateMethodTest();
 //    formatTest();
 //    testMonthDay();
-    testYearMonth();
+//    testYearMonth();
+//    testOffsetDateTime();
+//    duration();
+//    period();
+  }
+
+  
+
+  private static void period() throws InterruptedException {
+    LocalDate time1 = LocalDate.of(2017, 2, 12);
+    LocalDate time2 = LocalDate.now();
+    Period period = Period.between(time1, time2);
+    System.out.println(period.getUnits());
+  }
+
+  private static void duration() throws InterruptedException {
+    LocalDateTime time1 = LocalDateTime.now();
+    Thread.sleep(2000);
+    LocalDateTime time2 = LocalDateTime.now();
+    Duration duration = Duration.between(time1, time2);
+    System.out.println(duration);
+  }
+
+  //时间戳---计算机的时间
+  private static void testOffsetDateTime() {
+    Instant instant = Instant.now();
+    OffsetDateTime time = instant.atOffset(ZoneOffset.ofHours(8));
+    System.out.println(instant + "\n" + time + "\n" + instant.toEpochMilli());
+    Instant time1 = Instant.ofEpochSecond(100);
+    System.out.println(time1);
   }
 
   private static void testYearMonth() {
@@ -57,6 +84,8 @@ public class LocalDateDemo {
     System.out.println(date.format(DateTimeFormatter.ISO_DATE));
     System.out.println(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));//给前端传的数据格式
     System.out.println(LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE));//转换为字符串很方便的截取
+    System.out.println(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
+    System.out.println(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME));
   }
 
   private static void localDateMethodTest() {
@@ -93,14 +122,21 @@ public class LocalDateDemo {
    */
   private static void testPeriod() {
     Period period = Period.between(LocalDate.of(2019, 12, 26), LocalDate.now());
+    System.out.println(period);
     System.out.println(period.getYears());
     System.out.println(period.getMonths());
     System.out.println(period.getDays());
   }
 
-  private static void testInstant() {
+  private static void testInstant() throws InterruptedException {
     Instant time = Instant.now();
     System.out.println(time);
+    Thread.sleep(2000);
+    Instant time1 = Instant.now();
+    System.out.println(time1);
+    Duration duration = Duration.between(time, time1);
+    System.out.println(duration);
+    System.out.println(Duration.ofDays(1));
   }
 
   private static void testLocalTime() {
@@ -137,6 +173,7 @@ public class LocalDateDemo {
     System.out.println(today);
     System.out.println(tomorrow);
     System.out.println(yesterday);
+
 
     System.out.println(today.getMonth());
     System.out.println(today.getDayOfMonth());
